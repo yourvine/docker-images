@@ -1,4 +1,4 @@
-FROM circleci-fullstack
+FROM streetteam/circleci-fullstack:master
 
 USER root
 
@@ -18,6 +18,9 @@ RUN set -xe \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /src/visual_tests
+
+FROM node:8.5.0
+
 # fix several issues when running npm as root
 RUN npm config set unsafe-perm true
 
@@ -29,5 +32,3 @@ RUN yarn install
 
 # xvfb wrapper
 COPY xvfb-run /usr/bin/xvfb-run
-
-USER ciuser
